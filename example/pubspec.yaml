@@ -1,0 +1,28 @@
+name: whatsapp_bot_example
+publish_to: none
+description: Demonstrates how to use the whatsapp_bot plugin.
+environment:
+  sdk: ">=2.18.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  get: ^4.6.5
+  flex_color_scheme: ^6.0.1
+  file_picker: ^5.2.2
+  pretty_qr_code: ^2.0.2
+  flutter_inappwebview: ^5.7.1
+  whatsapp_bot_flutter_mobile:
+    path: ../
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+get_cli:
+  sub_folder: false
+
+flutter:
+  uses-material-design: true
