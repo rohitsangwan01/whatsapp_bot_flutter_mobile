@@ -1,8 +1,8 @@
 # Whatsapp bot flutter Mobile
 
-![197252923-6c5a1122-91d7-43ea-9283-1cf9d65820fd](https://user-images.githubusercontent.com/59526499/200159506-a6222766-9ecb-4d71-a55b-3cc492c39674.png)
+![PicsArt_11-06-01 10 14](https://user-images.githubusercontent.com/59526499/200159656-aa778efd-7947-4c82-998f-2ae0804237a3.png)
 
-[![whatsapp_bot_flutter_mobile version](https://img.shields.io/pub/v/whatsapp_bot_flutter?label=whatsapp_bot_flutter)](https://pub.dev/packages/whatsapp_bot_flutter)
+[![whatsapp_bot_flutter_mobile version](https://img.shields.io/pub/v/whatsapp_bot_flutter?label=whatsapp_bot_flutter)](https://pub.dev/packages/whatsapp_bot_flutter_mobile)
 
 Whatsapp bot using whatsapp web scraping
 
