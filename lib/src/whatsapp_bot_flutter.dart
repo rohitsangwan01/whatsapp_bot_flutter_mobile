@@ -69,28 +69,30 @@ class WhatsappBotFlutterMobile {
 
   /// to run webView in headless mode and connect with it
   static Future _getHeadlessModeData() async {
+    WebView.debugLoggingSettings.enabled = true;
     HeadlessInAppWebView webView = HeadlessInAppWebView(
       initialUrlRequest:
-          URLRequest(url: Uri.parse("https://web.whatsapp.com/")),
-      androidOnPermissionRequest: (controller, origin, resources) async {
-        return PermissionRequestResponse(
-            resources: resources,
-            action: PermissionRequestResponseAction.GRANT);
-      },
+          URLRequest(url: WebUri.uri(Uri.parse("https://web.whatsapp.com/"))),
       onConsoleMessage: (controller, consoleMessage) {
         WhatsappLogger.log(consoleMessage.message);
       },
-      initialOptions: InAppWebViewGroupOptions(
-        crossPlatform: InAppWebViewOptions(
-          preferredContentMode: UserPreferredContentMode.DESKTOP,
-          useShouldOverrideUrlLoading: true,
-          clearCache: true,
-          cacheEnabled: false,
-          mediaPlaybackRequiresUserGesture: false,
-          userAgent:
-              'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/60.0',
-          javaScriptEnabled: true,
-        ),
+      onReceivedServerTrustAuthRequest: (controller, challenge) async {
+        return ServerTrustAuthResponse(
+          action: ServerTrustAuthResponseAction.PROCEED,
+        );
+      },
+      shouldOverrideUrlLoading: (controller, navigationAction) async {
+        return NavigationActionPolicy.ALLOW;
+      },
+      initialSettings: InAppWebViewSettings(
+        preferredContentMode: UserPreferredContentMode.DESKTOP,
+        useShouldOverrideUrlLoading: true,
+        clearCache: true,
+        cacheEnabled: false,
+        mediaPlaybackRequiresUserGesture: false,
+        userAgent:
+            'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/60.0',
+        javaScriptEnabled: true,
       ),
     );
     await webView.run();
@@ -103,8 +105,8 @@ class WhatsappBotFlutterMobile {
       WhatsappLogger.log(url.toString());
       if (!completer.isCompleted) completer.complete(controller);
     };
-    webView.onLoadError = (controller, url, code, message) {
-      if (!completer.isCompleted) completer.completeError(message);
+    webView.onReceivedError = (controller, request, error) {
+      if (!completer.isCompleted) completer.completeError(error.description);
     };
     InAppWebViewController controller = await completer.future;
     return [controller, webView];

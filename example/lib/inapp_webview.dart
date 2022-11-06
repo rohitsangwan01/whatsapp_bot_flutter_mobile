@@ -11,29 +11,22 @@ class InAppWebViewPage extends GetView<HomeController> {
     return Scaffold(
       body: InAppWebView(
         initialUrlRequest:
-            URLRequest(url: Uri.parse("https://web.whatsapp.com/")),
-        androidOnPermissionRequest: (controller, origin, resources) async {
-          return PermissionRequestResponse(
-              resources: resources,
-              action: PermissionRequestResponseAction.GRANT);
-        },
+            URLRequest(url: WebUri.uri(Uri.parse("https://web.whatsapp.com/"))),
         onLoadStop: (cntrl, url) {
           controller.webViewController.value = cntrl;
         },
         onConsoleMessage: (controller, consoleMessage) {
           Get.log(consoleMessage.message);
         },
-        initialOptions: InAppWebViewGroupOptions(
-          crossPlatform: InAppWebViewOptions(
-            preferredContentMode: UserPreferredContentMode.DESKTOP,
-            useShouldOverrideUrlLoading: true,
-            clearCache: true,
-            cacheEnabled: false,
-            mediaPlaybackRequiresUserGesture: false,
-            userAgent:
-                'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/60.0',
-            javaScriptEnabled: true,
-          ),
+        initialSettings: InAppWebViewSettings(
+          preferredContentMode: UserPreferredContentMode.DESKTOP,
+          useShouldOverrideUrlLoading: true,
+          clearCache: true,
+          cacheEnabled: false,
+          mediaPlaybackRequiresUserGesture: false,
+          userAgent:
+              'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/60.0',
+          javaScriptEnabled: true,
         ),
       ),
     );
